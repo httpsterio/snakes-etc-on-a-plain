@@ -13,36 +13,34 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Verify bundled Python files
+    - name: Install Python 2.7.18
       run: |
-        dir "${{ github.workspace }}\src\bin\python"
+        # Install Python 2.7.18 manually on the runner
+        $python_installer = "${{ github.workspace }}\src\bin\python\python-2.7.18.msi"
+        msiexec /i $python_installer /quiet /norestart
 
-
-    - name: Test bundled Python
+    - name: Configure Python to use bundled Lib
       run: |
-        & "${{ github.workspace }}\src\bin\python\python.exe" -c "print('Hello from bundled Python!')"
+        # Set the path to the bundled Python Lib directory
+        $python_dir = "${{ github.workspace }}\src\bin\python"
+        $lib_dir = "${{ github.workspace }}\src\bin\python\Lib"
 
-    - name: Set up bundled Python
-      run: |
-        # Set the path to the bundled Python directory in the repository
-        $python_dir = "${{ github.workspace }}\src\bin\python"  # Path relative to the repo root
-
-        # Add bundled Python to the PATH
-        $env:PATH = "$python_dir;$env:PATH"  # Add bundled Python to the PATH
+        # Set the environment variable to use the bundled Lib directory
+        $env:PYTHONPATH = "$lib_dir;$env:PYTHONPATH"
 
         # Verify the Python environment
-        Write-Host "Using Python from: $python_dir"
-        & "$python_dir\python.exe" --version
+        Write-Host "Using Python 2.7.18 from the installed location"
+        & "C:\Python27\python.exe" --version
 
     - name: Install dependencies (py2exe, pyglet, etc.)
       run: |
-        # Install dependencies using bundled Python
-        & "${{ github.workspace }}\src\bin\python\python.exe" -m pip install -r requirements.txt
+        # Install dependencies using Python 2.7.18
+        & "C:\Python27\python.exe" -m pip install -r requirements.txt
 
     - name: Build with py2exe
       run: |
-        # Run the setup.py to build the project using the bundled Python
-        & "${{ github.workspace }}\src\bin\python\python.exe" setup.py py2exe
+        # Run the setup.py to build the project using Python 2.7.18
+        & "C:\Python27\python.exe" setup.py py2exe
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
