@@ -43,11 +43,10 @@ jobs:
         echo "Installing pip version 19.2.3..."
         python -m pip install --upgrade pip==19.2.3
 
-    - name: Install py2exe from Source
+    - name: Install py2exe 0.6.9 (amd64 wheel)
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
-        cd "${{ github.workspace }}\src\bin\python\py2exe-0.6.9"
-        python setup.py build --compiler=mingw32 install
+        python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-cp27-none-win_amd64.whl"
 
 
     - name: Verify py2exe installation
