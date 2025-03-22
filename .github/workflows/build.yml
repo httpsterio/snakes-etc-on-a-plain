@@ -13,10 +13,10 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Install Microsoft Visual C++ for Python 2.7
+    - name: Install Visual C++ 2008 Build Tools
       run: |
-        Invoke-WebRequest -Uri "https://download.microsoft.com/download/9/6/9/96917E4A-63A1-4F95-87E6-49B0B1A98B40/VCForPython27.msi" -OutFile VCForPython27.msi
-        Start-Process msiexec.exe -ArgumentList "/i VCForPython27.msi /quiet /norestart" -Wait -NoNewWindow
+        Invoke-WebRequest -Uri "https://aka.ms/vs/15/release/vs_buildtools.exe" -OutFile vs_buildtools.exe
+        Start-Process -FilePath vs_buildtools.exe -ArgumentList "--quiet --wait --norestart --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64" -Wait -NoNewWindow
 
 
     - name: Download and Install Python 2.7.18
