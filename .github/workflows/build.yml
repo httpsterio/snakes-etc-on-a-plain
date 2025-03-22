@@ -17,14 +17,10 @@ jobs:
       run: |
         Start-Process msiexec.exe -ArgumentList "/i ${{ github.workspace }}\src\bin\python\VCForPython27.msi /quiet /norestart" -Wait -NoNewWindow
 
-    - name: Set VC++ Compiler Path
+    - name: Install MinGW and Set Path
       run: |
-        set VS90COMNTOOLS="C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\"
-        set PATH=%PATH%;"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin"
-
-    - name: Check for vcvarsall.bat
-      run: |
-        dir "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
+        choco install mingw -y
+        set PATH=%PATH%;"C:\ProgramData\chocolatey\bin"
 
     - name: Download and Install Python 2.7.18
       run: |
@@ -56,7 +52,8 @@ jobs:
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
         cd "${{ github.workspace }}\src\bin\python\py2exe-0.6.9"
-        python setup.py install
+        python setup.py build --compiler=mingw32 install
+
 
     - name: Verify py2exe installation
       run: |
