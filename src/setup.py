@@ -35,7 +35,7 @@ setup(
     windows=[{
         'script': 'game.py',
         'dest_base': 'snakes-etc-on-a-plain',
-        'icon_resources': [(0, 'src/resources/icons/icon.ico')]
+        'icon_resources': [(0, 'resources/icons/icon.ico')]
     }],
     name='snakes-etc-on-a-plain',
     data_files=datafiles,
