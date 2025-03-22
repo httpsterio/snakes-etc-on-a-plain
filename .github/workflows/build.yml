@@ -32,11 +32,23 @@ jobs:
         $env:PATH = "C:\Python27\;$env:PATH"
         python "${{ github.workspace }}\src\bin\python\get-pip.py"
 
-    - name: Install specific pip version (19.1.0)
+    - name: Install specific pip version (19.0.3)
       run: |
-        echo "Installing pip version 19.1.0..."
+        echo "Installing pip version 19.0.3..."
         $env:PATH = "C:\Python27\;$env:PATH"
-        python -m pip install --upgrade pip==19.1.0
+        python -m pip install --upgrade pip==19.0.3
+
+    - name: Upgrade setuptools and wheel
+      run: |
+        echo "Upgrading setuptools and wheel..."
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -m pip install --upgrade setuptools wheel
+
+    - name: Install compatible versions of requests and urllib3
+      run: |
+        echo "Installing compatible versions of requests and urllib3..."
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -m pip install "requests==2.22.0" "urllib3==1.25.11"
 
     - name: Verify pip installation
       run: |
