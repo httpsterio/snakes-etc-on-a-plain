@@ -19,18 +19,17 @@ jobs:
 
     - name: Download and Install Python 2.7.18
       run: |
-        echo "Downloading Python 2.7.18..."
         $url = "https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi"
         $output = "${{ github.workspace }}\python-2.7.18.msi"
         Invoke-WebRequest -Uri $url -OutFile $output
         msiexec /i $output /quiet /norestart ADDLOCAL=ALL
 
-    - name: Verify Python 2.7 installation
-      run: |
-        echo "Verifying Python 2.7 installation..."
-        $env:PATH = "C:\Python27\;$env:PATH"
-        python --version
-        where python
+    # - name: Verify Python 2.7 installation
+    #   run: |
+    #     echo "Verifying Python 2.7 installation..."
+    #     $env:PATH = "C:\Python27\;$env:PATH"
+    #     python --version
+    #     where python
 
     - name: Install pip using get-pip.py
       run: |
@@ -40,7 +39,6 @@ jobs:
 
     - name: Install specific pip version (19.2.3)
       run: |
-        echo "Installing pip version 19.2.3..."
         python -m pip install --upgrade pip==19.2.3
 
     - name: Install py2exe 0.6.9 (amd64 wheel)
@@ -53,21 +51,19 @@ jobs:
         $env:PATH = "C:\Python27\;$env:PATH"
         python -c "import py2exe; print(py2exe.__version__)"
 
-    - name: List installed Python packages
-      run: |
-        echo "Listing installed Python packages..."
-        $env:PATH = "C:\Python27\;$env:PATH"
-        python -m pip freeze
+    # - name: List installed Python packages
+    #   run: |
+    #     echo "Listing installed Python packages..."
+    #     $env:PATH = "C:\Python27\;$env:PATH"
+    #     python -m pip freeze
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
-        echo "Installing pyglet..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install "${{ github.workspace }}\src\bin\python\pyglet-1.2.0-py2-none-any.whl"
 
     - name: Build with py2exe
       run: |
-        echo "Building with py2exe..."
         $env:PATH = "C:\Python27\;$env:PATH"
         cd src
         python setup.py py2exe
