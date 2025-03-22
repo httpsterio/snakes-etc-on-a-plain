@@ -37,7 +37,7 @@ jobs:
     - name: Install py2exe 0.6.9 from .whl file
       run: |
         # Install py2exe 0.6.9 manually from the .whl file
-        python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-cp27-none-win_amd64.whl"
+        python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-py2-none-any.whl"
 
     - name: Verify py2exe installation
       run: |
