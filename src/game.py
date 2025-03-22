@@ -4,6 +4,7 @@ Testing out the pyglet library.
 Draws heavily from http://steveasleep.com/pyglettutorial.html
 """
 
+from __future__ import print_function  # Ensures print works in both Python 2 and 3
 import pyglet
 from pyglet.window import key
 import maps
