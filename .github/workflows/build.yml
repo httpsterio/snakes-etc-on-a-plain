@@ -45,16 +45,16 @@ jobs:
         echo "Installing pip version 19.2.3..."
         python -m pip install --upgrade pip==19.2.3
 
-    - name: Verify py2exe installation
-      run: |
-        $env:PATH = "C:\Python27\;$env:PATH"
-        python -c "import py2exe; print(py2exe.__version__)"
-
     - name: Install py2exe from Source
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
         cd "${{ github.workspace }}\src\bin\python\py2exe-0.6.9"
         python setup.py install
+
+    - name: Verify py2exe installation
+      run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -c "import py2exe; print(py2exe.__version__)"
 
     - name: List installed Python packages
       run: |
