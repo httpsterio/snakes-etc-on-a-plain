@@ -18,26 +18,27 @@ jobs:
         $python_installer = "${{ github.workspace }}\src\bin\python\python-2.7.18.msi"
         msiexec /i $python_installer /quiet /norestart
 
-    - name: Add Python 2.7 to PATH for this session
+    - name: Verify Python 2.7 installation
       run: |
-        $env:PATH = "C:\Python27\;$env:PATH"
         python --version
         where python
 
-    - name: Install pip using bundled ensurepip
+    - name: Ensure Python 2.7 pip is used
       run: |
-        python -m ensurepip --default-pip
-        python -m pip --version
+        # Ensure the Python 2.7 path is set for this session
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -m ensurepip --default-pip  # Ensure pip is installed for Python 2.7
+        C:\Python27\Scripts\pip.exe --version  # Show pip version for Python 2.7
 
-    - name: Install pyglet from local .whl file
-      run: |
-        cd src\bin\python
-        python -m pip install pyglet-1.2.4-py2-none-any.whl
-
-    - name: Install other dependencies (py2exe, etc.) and Build
+    - name: Install pyglet and dependencies using Python 2.7 pip
       run: |
         cd src
-        python -m pip install -r requirements.txt  # Installs dependencies except pyglet
+        C:\Python27\Scripts\pip.exe install pyglet==1.2
+        C:\Python27\Scripts\pip.exe install -r requirements.txt  # Install all other dependencies
+
+    - name: Build with py2exe
+      run: |
+        cd src
         python setup.py py2exe
 
     - name: Upload build artifact
