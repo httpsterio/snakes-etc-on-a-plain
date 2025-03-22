@@ -3,7 +3,7 @@ name: Windows Build
 on:
   push:
     branches:
-      - main  # Change this to your release branch
+      - master  # Change this to your release branch
 
 jobs:
   build:
