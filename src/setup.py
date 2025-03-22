@@ -43,9 +43,7 @@ setup(
         'py2exe': {
             'dist_dir': '../release/win32',
             'dll_excludes': ['w9xpopen.exe'],
-            'bundle_files': 0,
-            'optimize': 2,
-            'includes': ['zipimport']  # Explicitly include zipimport
+            'optimize': 2
         }
     },
     zipfile=None  # Ensure that py2exe doesn't create a separate zip file
