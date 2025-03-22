@@ -26,11 +26,11 @@ jobs:
         python --version
         where python
 
-    - name: Install pip 19.2.3 using get-pip.py
+    - name: Install pip using get-pip.py
       run: |
-        echo "Installing pip 19.2.3..."
-        $env:PATH = "C:\Python27\;$env:PATH"
-        python "${{ github.workspace }}\src\bin\python\get-pip.py"
+        echo "Downloading get-pip.py..."
+        Invoke-WebRequest -Uri "https://bootstrap.pypa.io/pip/2.7/get-pip.py" -OutFile "get-pip.py"
+        python get-pip.py
 
     - name: Install specific pip version (19.2.3)
       run: |
