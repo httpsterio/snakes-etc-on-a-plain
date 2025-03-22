@@ -31,16 +31,10 @@ jobs:
         python -m ensurepip --default-pip
         python -m pip --version
 
-    steps:
-    - name: Change directory to src
-      run: cd src
-
-    - name: Install dependencies (py2exe, pyglet, etc.)
+    - name: Install dependencies (py2exe, pyglet, etc.) and Build
       run: |
-        cd src/ && python -m pip install -r requirements.txt
-
-    - name: Build with py2exe
-      run: |
+        cd src
+        python -m pip install -r requirements.txt
         python setup.py py2exe
 
     - name: Upload build artifact
