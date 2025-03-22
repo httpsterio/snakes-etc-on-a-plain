@@ -40,7 +40,7 @@ jobs:
     - name: Build with py2exe
       run: |
         # Run the setup.py to build the project using Python 2.7.18
-        python setup.py py2exe
+        python "${{ github.workspace }}\src\setup.py" py2exe
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
