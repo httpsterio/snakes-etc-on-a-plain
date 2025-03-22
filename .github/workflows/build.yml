@@ -80,5 +80,3 @@ jobs:
         files: release/win32/snakes-etc-on-a-plain-win32.zip  # Specify the file to upload
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # Make sure this release is linked to the tag
-      ref: ${{ github.ref }}  # This ensures the release is created for the correct tag
