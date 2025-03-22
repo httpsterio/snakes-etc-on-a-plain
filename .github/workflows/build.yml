@@ -77,3 +77,10 @@ jobs:
       with:
         name: snakes-etc-on-a-plain-win32
         path: release/win32  # Adjust to your actual build output path
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: release/win32/*.zip  # Specify the file(s) to attach to the release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
