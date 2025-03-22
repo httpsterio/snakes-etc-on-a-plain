@@ -1,20 +1,20 @@
-#(THERE IS MOFFIN') SNAKES ETC. ON THIS (MOFFIN') PLAIN
+# (THERE IS MOFFIN') SNAKES ETC. ON THIS (MOFFIN') PLAIN
 
-![alt text](https://raw2.github.com/epiphone/snakes-etc-on-a-plain/master/press/screenshot-intro.png)
+![screenshot](https://github.com/httpsterio/snakes-etc-on-a-plain/blob/master/press/screenshot-intro.png?raw=true)
 
 
 Game made in 48* hours at Global Game Jam 2014, Jyväskylä.
 
-* __[Sami Singh](http://soundcloud.com/alajarvela)__ - music & sound effects
+* __[Sami Mäkelä](https://httpster.io)__ - music & sound effects
 * __Jonne Harja__ - production, design
 * __Matti Kinnunen__ - graphics, design
 * __Jussi Lundelin__ - design, maps
 * __Aleksi Pekkala__ - programming
 
-##Run
+## Run
 `python game.py`
 
-##Build .exe
+## Build .exe
 Requirements:
  - python 2.7 32bit
  - py2exe 32bit
@@ -26,7 +26,7 @@ In the `src`-dir run:
 
 Run the game from `release/win32/snakes-etc-on-a-plain.exe`
 
-##Description
+## Description
 
 In This Already Anticipated (By FGJTurku) Epic Game, The Player Will Releases A Heroic Panicbound Kid Inside!
 

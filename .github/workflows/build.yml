@@ -1,0 +1,93 @@
+name: Build Game for Windows
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: windows-latest  # Using GitHub's hosted Windows runner
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Check system architecture
+      run: |
+        echo "System architecture: $(wmic os get osarchitecture)"
+
+    - name: Download and Install Python 2.7.18
+      run: |
+        $url = "https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi"
+        $output = "${{ github.workspace }}\python-2.7.18.msi"
+        Invoke-WebRequest -Uri $url -OutFile $output
+        msiexec /i $output /quiet /norestart ADDLOCAL=ALL
+
+    # - name: Verify Python 2.7 installation
+    #   run: |
+    #     echo "Verifying Python 2.7 installation..."
+    #     $env:PATH = "C:\Python27\;$env:PATH"
+    #     python --version
+    #     where python
+
+    - name: Install pip using get-pip.py
+      run: |
+        echo "Downloading get-pip.py..."
+        Invoke-WebRequest -Uri "https://bootstrap.pypa.io/pip/2.7/get-pip.py" -OutFile "get-pip.py"
+        python get-pip.py
+
+    - name: Install specific pip version (19.2.3)
+      run: |
+        python -m pip install --upgrade pip==19.2.3
+
+    - name: Install py2exe 0.6.9 (amd64 wheel)
+      run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-cp27-none-win_amd64.whl"
+
+    - name: Verify py2exe installation
+      run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -c "import py2exe; print(py2exe.__version__)"
+
+    # - name: List installed Python packages
+    #   run: |
+    #     echo "Listing installed Python packages..."
+    #     $env:PATH = "C:\Python27\;$env:PATH"
+    #     python -m pip freeze
+
+    - name: Install pyglet manually (using a specific wheel, if needed)
+      run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -m pip install "${{ github.workspace }}\src\bin\python\pyglet-1.2.0-py2-none-any.whl"
+
+    - name: Build with py2exe
+      run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
+        cd src
+        python setup.py py2exe
+
+    # Step to zip all files in the release/win32/ directory
+    - name: Zip all files in the release directory
+      run: |
+        Compress-Archive -Path 'release/win32/*' -DestinationPath 'release/win32/snakes-etc-on-a-plain-win32.zip'
+
+    # Debugging: List contents of the build folder
+    - name: List build directory contents
+      run: |
+        dir release/win32/
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: snakes-etc-on-a-plain-win32
+        path: release/win32/snakes-etc-on-a-plain-win32.zip  # Now points to the .zip file
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ github.ref }}
+        files: release/win32/snakes-etc-on-a-plain-win32.zip  # Correct path to .zip file
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
