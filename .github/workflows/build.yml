@@ -87,11 +87,7 @@ jobs:
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-<<<<<<< HEAD
         tag_name: ${{ github.ref }}
-=======
-        tag_name: v1.0.0  # Ensure this tag matches the tag you pushed
->>>>>>> 957575e (workflow update)
         files: release/win32/snakes-etc-on-a-plain-win32.zip  # Correct path to .zip file
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
