@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest  # Using GitHub's hosted Windows runner
+    runs-on: windows-latest
 
     steps:
     - name: Check out repository
@@ -16,7 +16,7 @@ jobs:
     - name: Install Python 2.7.18 using MSI installer
       run: |
         $python_installer = "${{ github.workspace }}\src\bin\python\python-2.7.18.msi"
-        msiexec /i $python_installer /quiet /norestart
+        msiexec /i $python_installer /quiet /norestart ADDLOCAL=ALL
 
     - name: Verify Python 2.7 installation
       run: |
@@ -28,18 +28,22 @@ jobs:
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m ensurepip --default-pip
-        python -m pip --version  # Show pip version for Python 2.7
+        python -m pip --version
 
-    - name: Verify platform architecture
+    - name: Verify _socket module
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
-        python -c "import platform; print(platform.architecture())"
+        python -c "import _socket"
 
-    - name: Download and install py2exe 0.6.9
+    - name: Install py2exe 0.6.9 manually from the .whl file
       run: |
-        # Install py2exe 0.6.9 manually from the .whl file
-        python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-cp27-none-win_amd64.whl"
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-py2-none-any.whl"
 
+    - name: Verify py2exe installation
+      run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -c "import py2exe; print(py2exe.__version__)"
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
@@ -56,4 +60,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: snakes-etc-on-a-plain-win32
-        path: release/win32  # Adjust to your actual build output path
+        path: release/win32
