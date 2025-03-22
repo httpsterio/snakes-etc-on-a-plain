@@ -32,7 +32,7 @@ jobs:
     - name: Install pyglet from local .whl file
       run: |
         cd src\bin\python
-        python -m pip install pyglet-1.2.0-py2-none-any.whl
+        python -m pip install pyglet-1.2.4-py2-none-any.whl
 
     - name: Install other dependencies (py2exe, etc.) and Build
       run: |
