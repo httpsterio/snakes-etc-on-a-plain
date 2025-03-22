@@ -19,17 +19,37 @@ jobs:
         $python_installer = "${{ github.workspace }}\src\bin\python\python-2.7.18.msi"
         msiexec /i $python_installer /quiet /norestart
 
+    - name: Verify Python installation
+      run: |
+        # Verify Python installation and print the location
+        where python
+
     - name: Install pip for Python 2.7.18
       run: |
         # Install pip using the get-pip.py file from the repository
-        $python_exe = "C:\Python27\python.exe"
+        $python_exe = "C:\Python27\python.exe"  # Adjust based on where `where python` outputs
         $get_pip_script = "${{ github.workspace }}\src\bin\python\get-pip.py"
         
         # Install pip for Python 2.7.18
         & $python_exe $get_pip_script
 
-    - name: Configure Python to use bundled Lib
+    - name: Install setuptools and wheel
       run: |
-        # Set the path to the bundled Python Lib directory
-        $python_dir = "${{ github.workspace }}\src\bin\python"
-        $lib_dir = "${{ github.workspace }}\src\bin\python\Lib"
+        # Install setuptools and wheel for compatibility
+        & "C:\Python27\python.exe" -m pip install --upgrade setuptools wheel
+
+    - name: Install dependencies (py2exe, pyglet, etc.)
+      run: |
+        # Install dependencies using pip for Python 2.7.18
+        & "C:\Python27\python.exe" -m pip install -r requirements.txt
+
+    - name: Build with py2exe
+      run: |
+        # Run the setup.py to build the project using Python 2.7.18
+        & "C:\Python27\python.exe" setup.py py2exe
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: snakes-etc-on-a-plain-win32
+        path: release/win32  # Adjust to your actual build output path
