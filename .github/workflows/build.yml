@@ -20,37 +20,35 @@ jobs:
 
     - name: Verify Python 2.7 installation
       run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
         python --version
         where python
 
     - name: Ensure Python 2.7 pip is used
       run: |
-        # Ensure Python 2.7 is in the path
         $env:PATH = "C:\Python27\;$env:PATH"
-        
-        # Ensure pip is installed for Python 2.7
         python -m ensurepip --default-pip
-        
-        # Use python -m pip instead of calling pip directly
-        python -m pip --version
+        python -m pip --version  # Show pip version for Python 2.7
 
-    - name: Install py2exe 0.6.9 from .whl file
+    - name: Verify platform architecture
+      run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -c "import platform; print(platform.architecture())"
+
+    - name: Download and install py2exe 0.6.9
       run: |
         # Install py2exe 0.6.9 manually from the .whl file
         python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-py2-none-any.whl"
 
-    - name: Verify py2exe installation
-      run: |
-        # Verify that py2exe is installed
-        python -c "import py2exe; print('py2exe version:', py2exe.__version__)"
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
-        # Install pyglet manually if required (you can skip this if already installed)
+        $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install "${{ github.workspace }}\src\bin\python\pyglet-1.2.0-py2-none-any.whl"
 
     - name: Build with py2exe
       run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
         cd src
         python setup.py py2exe
 
