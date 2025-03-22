@@ -15,8 +15,10 @@ jobs:
 
     - name: Set up bundled Python
       run: |
-        # Set the path to the bundled Python directory in the repository
+      # Set the path to the bundled Python directory in the repository
         $python_dir = "${{ github.workspace }}\src\bin\python"  # Path relative to the repo root
+
+        # Add bundled Python to the PATH
         $env:PATH = "$python_dir;$env:PATH"  # Add bundled Python to the PATH
 
         # Verify the Python environment
