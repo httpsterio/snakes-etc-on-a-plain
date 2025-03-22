@@ -48,7 +48,6 @@ jobs:
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-cp27-none-win_amd64.whl"
 
-
     - name: Verify py2exe installation
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
@@ -59,12 +58,6 @@ jobs:
         echo "Listing installed Python packages..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip freeze
-
-    - name: Verify py2exe installation
-      run: |
-        echo "Verifying py2exe installation..."
-        $env:PATH = "C:\Python27\;$env:PATH"
-        python -c "import py2exe; print('py2exe installed successfully')"
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
@@ -77,7 +70,7 @@ jobs:
         echo "Building with py2exe..."
         $env:PATH = "C:\Python27\;$env:PATH"
         cd src
-        python setup.py py2exe
+        python2 setup.py py2exe
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4

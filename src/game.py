@@ -156,7 +156,6 @@ def update(dt):
     goal_x = game_map.width - game_map.scroll_x
     if (game_map.player1.x >= goal_x or game_map.player1.is_dead) and (game_map.player2.x >= goal_x or game_map.player2.is_dead):
         if len(levels) == 1:
-            print "no more levels" 
             sys.exit()
         else:
             levels = levels[1:]
