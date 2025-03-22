@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest  # Using GitHub's hosted Windows runner
 
     steps:
     - name: Check out repository
@@ -24,16 +24,15 @@ jobs:
         python --version
         where python
 
-    - name: Ensure Python 2.7 pip is used
+    - name: Install pip using get-pip.py
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
-        python -m ensurepip --default-pip
-        python -m pip --version
+        python "${{ github.workspace }}\src\bin\python\get-pip.py"
 
-    - name: Verify _socket module
+    - name: Verify pip installation
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
-        python -c "import _socket"
+        python -m pip --version
 
     - name: Install py2exe 0.6.9 manually from the .whl file
       run: |
