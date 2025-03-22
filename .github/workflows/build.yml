@@ -33,8 +33,9 @@ jobs:
 
     - name: Install dependencies (py2exe, pyglet, etc.)
       run: |
-        # Install dependencies using the newly installed pip
-        python -m pip install -r requirements.txt
+        # Install dependencies using pip, pointing to the correct path of requirements.txt
+        python -m pip install -r "${{ github.workspace }}\src\requirements.txt"
+
 
     - name: Build with py2exe
       run: |
