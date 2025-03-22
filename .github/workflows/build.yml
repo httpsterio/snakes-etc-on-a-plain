@@ -15,47 +15,56 @@ jobs:
 
     - name: Install Python 2.7.18 using MSI installer
       run: |
+        echo "Installing Python 2.7.18..."
         $python_installer = "${{ github.workspace }}\src\bin\python\python-2.7.18.msi"
         msiexec /i $python_installer /quiet /norestart ADDLOCAL=ALL
 
     - name: Verify Python 2.7 installation
       run: |
+        echo "Verifying Python 2.7 installation..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python --version
         where python
 
     - name: Install pip using get-pip.py
       run: |
+        echo "Installing pip..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python "${{ github.workspace }}\src\bin\python\get-pip.py"
 
     - name: Install specific pip version (19.1.0)
       run: |
+        echo "Installing pip version 19.1.0..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install --upgrade pip==19.1.0
 
     - name: Verify pip installation
       run: |
+        echo "Verifying pip installation..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip --version
 
     - name: Install py2exe 0.6.9 manually from the .whl file
       run: |
+        echo "Installing py2exe..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-py2-none-any.whl"
 
     - name: Verify py2exe installation
       run: |
+        echo "Verifying py2exe installation..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -c "import py2exe; print(py2exe.__version__)"
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
+        echo "Installing pyglet..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install "${{ github.workspace }}\src\bin\python\pyglet-1.2.0-py2-none-any.whl"
 
     - name: Build with py2exe
       run: |
+        echo "Building with py2exe..."
         $env:PATH = "C:\Python27\;$env:PATH"
         cd src
         python setup.py py2exe
@@ -64,4 +73,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: snakes-etc-on-a-plain-win32
-        path: release/win32
+        path: release/win32  # Adjust to your actual build output path
