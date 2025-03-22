@@ -48,8 +48,14 @@ jobs:
       run: |
         echo "Installing py2exe..."
         $env:PATH = "C:\Python27\;$env:PATH"
-        python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-py2-none-any.whl"
+        python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-cp27-none-win_amd64.whl"
         echo "Py2exe installation completed."
+
+    - name: List installed Python packages
+      run: |
+        echo "Listing installed Python packages..."
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -m pip freeze
 
     - name: Verify py2exe installation
       run: |
