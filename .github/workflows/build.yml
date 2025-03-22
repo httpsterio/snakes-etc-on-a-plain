@@ -1,57 +1,40 @@
-name: Windows Build
+name: Build Game for Windows
 
 on:
   push:
     branches:
-      - master  # Change this to your release branch
+      - master  # or your desired branch to trigger the build
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-latest  # or use self-hosted if you have a custom runner
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - name: Check out repository
+      uses: actions/checkout@v3
 
-      - name: Download and Install Python 2.7 (32-bit)
-        run: |
-          Invoke-WebRequest -Uri "https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi" -OutFile "python.msi"
-          Start-Process msiexec.exe -ArgumentList '/i python.msi /quiet /qn /norestart' -NoNewWindow -Wait
-          echo "C:\Python27" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+    - name: Set up bundled Python
+      run: |
+        # Set the path to the bundled Python directory in the repository
+        $python_dir = "${{ github.workspace }}\src\bin\python"  # Path relative to the repo root
+        $env:PATH = "$python_dir;$env:PATH"  # Add bundled Python to the PATH
 
-      - name: Verify Python Installation
-        run: |
-          python --version
-          pip --version
+        # Verify the Python environment
+        Write-Host "Using Python from: $python_dir"
+        & "$python_dir\python.exe" --version
 
-      - name: Install Dependencies
-        run: |
-          cd src
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies (py2exe, pyglet, etc.)
+      run: |
+        # Install dependencies using bundled Python
+        & "${{ github.workspace }}\src\bin\python\python.exe" -m pip install -r requirements.txt
 
-      - name: Build Executable with py2exe
-        run: |
-          cd src
-          python setup.py install
-          python setup.py py2exe
+    - name: Build with py2exe
+      run: |
+        # Run the setup.py to build the project using the bundled Python
+        & "${{ github.workspace }}\src\bin\python\python.exe" setup.py py2exe
 
-      - name: Package Executable
-        run: |
-          mkdir release
-          mv src/dist/* release/
-          tar -cvf game-win32.tar release/
-
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: game-win32
-          path: game-win32.tar
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/heads/main')
-        with:
-          files: game-win32.tar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: snakes-etc-on-a-plain-win32
+        path: release/win32  # Adjust to your actual build output path
