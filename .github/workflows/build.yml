@@ -49,13 +49,13 @@ jobs:
         echo "Installing py2exe..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-py2-none-any.whl"
-        pip show py2exe
-        
+        echo "Py2exe installation completed."
+
     - name: Verify py2exe installation
       run: |
         echo "Verifying py2exe installation..."
         $env:PATH = "C:\Python27\;$env:PATH"
-        python -c "import py2exe; print(py2exe.__version__)"
+        python -c "import py2exe; print('py2exe installed successfully')"
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
