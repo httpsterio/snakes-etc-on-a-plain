@@ -36,7 +36,7 @@ jobs:
 
     - name: Install dependencies (py2exe, pyglet, etc.)
       run: |
-        python -m pip install -r requirements.txt
+        cd src/ && python -m pip install -r requirements.txt
 
     - name: Build with py2exe
       run: |
