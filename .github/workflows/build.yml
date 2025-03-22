@@ -20,7 +20,7 @@ jobs:
     - name: Download and Install Python 2.7.18
       run: |
         echo "Downloading Python 2.7.18..."
-        $url = "https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi"
+        $url = "https://www.python.org/ftp/python/2.7.18/python-2.7.18.amd64.msi"
         $output = "${{ github.workspace }}\python-2.7.18.msi"
         Invoke-WebRequest -Uri $url -OutFile $output
         msiexec /i $output /quiet /norestart ADDLOCAL=ALL
