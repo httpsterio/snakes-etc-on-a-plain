@@ -38,7 +38,12 @@ jobs:
     - name: Install py2exe 0.6.9 from .whl file
       run: |
         # Install py2exe 0.6.9 manually from the .whl file
-        C:\Python27\Scripts\pip.exe install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-py2-none-any.whl"
+        C:\Python27\Scripts\pip.exe install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-cp27-none-any.whl"
+
+    - name: Verify py2exe installation
+      run: |
+        # Verify that py2exe is installed
+        python -c "import py2exe; print('py2exe version:', py2exe.__version__)"
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
