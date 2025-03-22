@@ -31,16 +31,15 @@ jobs:
         python -m ensurepip --default-pip
         python -m pip --version
 
+    - name: Change directory to src
+      run: cd src
+
     - name: Install dependencies (py2exe, pyglet, etc.)
       run: |
-        # Change to the src directory where requirements.txt is located
-        cd ${{ github.workspace }}\src
         python -m pip install -r requirements.txt
 
     - name: Build with py2exe
       run: |
-        # Change to the src directory before running setup.py
-        cd ${{ github.workspace }}\src
         python setup.py py2exe
 
     - name: Upload build artifact
