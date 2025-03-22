@@ -13,6 +13,10 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
+    - name: Install Visual C++ Compiler for Python 2.7
+      run: |
+        choco install vcpython27 -y
+
     - name: Download and Install Python 2.7.18
       run: |
         echo "Downloading Python 2.7.18..."
@@ -39,10 +43,10 @@ jobs:
         echo "Installing pip version 19.2.3..."
         python -m pip install --upgrade pip==19.2.3
 
-    - name: Verify pip installation
+    - name: Verify py2exe installation
       run: |
-        echo "Verifying pip installation..."
-        python -m pip --version
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -c "import py2exe; print(py2exe.__version__)"
 
     - name: Install py2exe from Source
       run: |
