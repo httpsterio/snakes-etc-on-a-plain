@@ -29,6 +29,11 @@ jobs:
         $env:PATH = "C:\Python27\;$env:PATH"
         python "${{ github.workspace }}\src\bin\python\get-pip.py"
 
+    - name: Install specific pip version (19.1.0)
+      run: |
+        $env:PATH = "C:\Python27\;$env:PATH"
+        python -m pip install --upgrade pip==19.1.0
+
     - name: Verify pip installation
       run: |
         $env:PATH = "C:\Python27\;$env:PATH"
