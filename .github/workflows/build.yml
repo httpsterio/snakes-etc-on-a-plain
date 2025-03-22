@@ -17,7 +17,9 @@ jobs:
       run: |
         Start-Process msiexec.exe -ArgumentList "/i ${{ github.workspace }}\src\bin\python\VCForPython27.msi /quiet /norestart" -Wait -NoNewWindow
 
-
+    - name: Check for vcvarsall.bat
+      run: |
+        dir "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
 
     - name: Download and Install Python 2.7.18
       run: |
