@@ -29,16 +29,15 @@ jobs:
         python -m ensurepip --default-pip
         python -m pip --version
 
-    - name: Install pip using bundled ensurepip
+    - name: Install pyglet from .whl file
       run: |
-        # Use bundled ensurepip to install pip if it's not already installed
-        python -m ensurepip --default-pip
-        python -m pip --version
+        cd src\bin\python
+        python -m pip install pyglet-1.2.0-py2-none-any.whl
 
-    - name: Install dependencies (py2exe, pyglet, etc.) and Build
+    - name: Install dependencies (py2exe, etc.) and Build
       run: |
         cd src
-        python -m pip install -r requirements.txt
+        python -m pip install -r requirements.txt  # Doesn't install pyglet, since it's already installed
         python setup.py py2exe
 
     - name: Upload build artifact
