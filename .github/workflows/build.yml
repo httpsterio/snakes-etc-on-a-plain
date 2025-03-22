@@ -13,11 +13,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Python 2.7
-        uses: actions/setup-python@v4
-        with:
-          python-version: '2.7'
-          architecture: 'x86'  # 32-bit
+      - name: Download and Install Python 2.7 (32-bit)
+        run: |
+          Invoke-WebRequest -Uri "https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi" -OutFile "python.msi"
+          Start-Process msiexec.exe -ArgumentList '/i python.msi /quiet /qn /norestart' -NoNewWindow -Wait
+          echo "C:\Python27" | Out-File -Append -Encoding utf8 $env:GITHUB_PATH
+
+      - name: Verify Python Installation
+        run: |
+          python --version
+          pip --version
 
       - name: Install Dependencies
         run: |
