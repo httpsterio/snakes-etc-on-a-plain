@@ -33,7 +33,7 @@ jobs:
       run: |
         # Run the installer as admin (on a hosted runner)
         $py2exe_installer = "${{ github.workspace }}\src\bin\python\py2exe-0.6.9.win32-py2.7.exe"
-        Start-Process -FilePath $py2exe_installer -ArgumentList "/S" -Wait -Verb RunAs
+        Start-Process -FilePath $py2exe_installer -ArgumentList "/S" -Wait
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
