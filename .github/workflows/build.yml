@@ -13,9 +13,11 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Install Visual C++ Compiler for Python 2.7
+    - name: Install Microsoft Visual C++ for Python 2.7
       run: |
-        choco install vcpython27 -y
+        Invoke-WebRequest -Uri "https://download.microsoft.com/download/9/6/9/96917E4A-63A1-4F95-87E6-49B0B1A98B40/VCForPython27.msi" -OutFile VCForPython27.msi
+        Start-Process msiexec.exe -ArgumentList "/i VCForPython27.msi /quiet /norestart" -Wait -NoNewWindow
+
 
     - name: Download and Install Python 2.7.18
       run: |
