@@ -15,22 +15,19 @@ jobs:
 
     - name: Install Python 2.7.18 using MSI installer
       run: |
-        # Install Python 2.7.18 using MSI installer
         $python_installer = "${{ github.workspace }}\src\bin\python\python-2.7.18.msi"
         msiexec /i $python_installer /quiet /norestart
 
-    - name: Add Python 2.7 to PATH
+    - name: Add Python 2.7 to PATH for this session
       run: |
-        # Add Python 2.7 to the system PATH to make sure it's used
-        $python_path = "C:\\Python27\\"
-        echo "##vso[task.setvariable variable=PYTHON_HOME]$python_path"
-        echo "$python_path" >> $env:PATH
-
-    - name: Verify Python 2.7 installation and print location
-      run: |
-        # Print Python installation location and version
-        where python
+        $env:PATH = "C:\Python27\;$env:PATH"
         python --version
+        where python
+
+    - name: Install pip using bundled ensurepip
+      run: |
+        python -m ensurepip --default-pip
+        python -m pip --version
 
     - name: Install pip using bundled ensurepip
       run: |
