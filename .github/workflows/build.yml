@@ -29,15 +29,15 @@ jobs:
         python -m ensurepip --default-pip
         python -m pip --version
 
-    - name: Install pyglet from .whl file
+    - name: Install pyglet from local .whl file
       run: |
         cd src\bin\python
         python -m pip install pyglet-1.2.0-py2-none-any.whl
 
-    - name: Install dependencies (py2exe, etc.) and Build
+    - name: Install other dependencies (py2exe, etc.) and Build
       run: |
         cd src
-        python -m pip install -r requirements.txt  # Doesn't install pyglet, since it's already installed
+        python -m pip install -r requirements.txt  # Installs dependencies except pyglet
         python setup.py py2exe
 
     - name: Upload build artifact

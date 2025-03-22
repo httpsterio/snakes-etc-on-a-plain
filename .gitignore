@@ -10,6 +10,7 @@ dist
 build
 eggs
 parts
+release/win32
 var
 sdist
 develop-eggs
