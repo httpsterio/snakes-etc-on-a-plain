@@ -70,7 +70,7 @@ jobs:
         echo "Building with py2exe..."
         $env:PATH = "C:\Python27\;$env:PATH"
         cd src
-        python2 setup.py py2exe
+        python setup.py py2exe
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
