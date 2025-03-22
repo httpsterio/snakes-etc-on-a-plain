@@ -35,17 +35,15 @@ jobs:
         C:\Python27\Scripts\pip.exe --version
         python -m pip --version  # Alternative to show pip version for Python 2.7
 
-    - name: Download and install py2exe 0.6.9
+    - name: Install py2exe 0.6.9 from .whl file
       run: |
-        # Run the py2exe installer silently
-        cmd /c "${{ github.workspace }}\src\bin\python\py2exe-0.6.9.win32-py2.7.exe /S"
-
-
+        # Install py2exe 0.6.9 manually from the .whl file
+        C:\Python27\Scripts\pip.exe install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-cp27-none-any.whl"
 
     - name: Install pyglet manually (using a specific wheel, if needed)
       run: |
         # Install pyglet manually if required (you can skip this if already installed)
-        C:\Python27\Scripts\pip.exe install ${GITHUB_WORKSPACE}\src\bin\python\pyglet-1.2.0-py2-none-any.whl
+        C:\Python27\Scripts\pip.exe install "${{ github.workspace }}\src\bin\python\pyglet-1.2.0-py2-none-any.whl"
 
     - name: Build with py2exe
       run: |
