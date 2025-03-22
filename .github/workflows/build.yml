@@ -13,11 +13,13 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Install Python 2.7.18 using MSI installer
+    - name: Download and Install Python 2.7.18
       run: |
-        echo "Installing Python 2.7.18..."
-        $python_installer = "${{ github.workspace }}\src\bin\python\python-2.7.18.msi"
-        msiexec /i $python_installer /quiet /norestart ADDLOCAL=ALL
+        echo "Downloading Python 2.7.18..."
+        $url = "https://www.python.org/ftp/python/2.7.18/python-2.7.18.msi"
+        $output = "${{ github.workspace }}\python-2.7.18.msi"
+        Invoke-WebRequest -Uri $url -OutFile $output
+        msiexec /i $output /quiet /norestart ADDLOCAL=ALL
 
     - name: Verify Python 2.7 installation
       run: |
@@ -35,13 +37,11 @@ jobs:
     - name: Install specific pip version (19.2.3)
       run: |
         echo "Installing pip version 19.2.3..."
-        $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install --upgrade pip==19.2.3
 
     - name: Verify pip installation
       run: |
         echo "Verifying pip installation..."
-        $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip --version
 
     - name: Install py2exe 0.6.9 manually from the .whl file
@@ -49,7 +49,8 @@ jobs:
         echo "Installing py2exe..."
         $env:PATH = "C:\Python27\;$env:PATH"
         python -m pip install "${{ github.workspace }}\src\bin\python\py2exe-0.6.9-py2-none-any.whl"
-
+        pip show py2exe
+        
     - name: Verify py2exe installation
       run: |
         echo "Verifying py2exe installation..."
