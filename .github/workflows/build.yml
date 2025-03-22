@@ -13,14 +13,9 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Install Microsoft Visual C++ for Python 2.7
+    - name: Check system architecture
       run: |
-        Start-Process msiexec.exe -ArgumentList "/i ${{ github.workspace }}\src\bin\python\VCForPython27.msi /quiet /norestart" -Wait -NoNewWindow
-
-    - name: Install MinGW and Set Path
-      run: |
-        choco install mingw -y
-        set PATH=%PATH%;"C:\ProgramData\chocolatey\bin"
+        echo "System architecture: $(wmic os get osarchitecture)"
 
     - name: Download and Install Python 2.7.18
       run: |
