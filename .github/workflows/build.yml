@@ -3,7 +3,7 @@ name: Windows Build
 on:
   push:
     branches:
-      - master  # Change this to your release branch
+      - main  # Change this to your release branch
 
 jobs:
   build:
@@ -11,32 +11,34 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Python 2.7
-        uses: ilammy/setup-python@v1
+        uses: actions/setup-python@v4
         with:
           python-version: '2.7'
           architecture: 'x86'  # 32-bit
 
       - name: Install Dependencies
         run: |
+          cd src
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
       - name: Build Executable with py2exe
         run: |
+          cd src
           python setup.py install
           python setup.py py2exe
 
       - name: Package Executable
         run: |
           mkdir release
-          mv dist/* release/
+          mv src/dist/* release/
           tar -cvf game-win32.tar release/
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: game-win32
           path: game-win32.tar
