@@ -13,7 +13,7 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Install Python 2.7.18
+    - name: Install Python 2.7.18 (bundled)
       run: |
         # Install Python 2.7.18 manually on the runner
         $python_installer = "${{ github.workspace }}\src\bin\python\python-2.7.18.msi"
@@ -24,23 +24,21 @@ jobs:
         # Verify Python installation and print the location
         where python
 
-    - name: Install pip for Python 2.7.18
+    - name: Use bundled pip 19.2.3
       run: |
-        # Install pip using the get-pip.py file from the repository
+        # Use the bundled pip from the repository
         $python_exe = "C:\Python27\python.exe"  # Adjust based on where `where python` outputs
-        $get_pip_script = "${{ github.workspace }}\src\bin\python\get-pip.py"
+        $pip_bundle = "${{ github.workspace }}\src\bin\python\Lib\ensurepip\_bundled\pip-19.2.3-py2.py3-none-any.whl"
         
-        # Install pip for Python 2.7.18
-        & $python_exe $get_pip_script
-
-    - name: Install setuptools and wheel
-      run: |
-        # Install setuptools and wheel for compatibility
-        & "C:\Python27\python.exe" -m pip install --upgrade setuptools wheel
+        # Install bundled pip (since it's working locally)
+        & $python_exe -m ensurepip --default-pip
+        
+        # Verify pip installation
+        & $python_exe -m pip --version
 
     - name: Install dependencies (py2exe, pyglet, etc.)
       run: |
-        # Install dependencies using pip for Python 2.7.18
+        # Install dependencies using bundled pip
         & "C:\Python27\python.exe" -m pip install -r requirements.txt
 
     - name: Build with py2exe
