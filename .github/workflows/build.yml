@@ -17,6 +17,11 @@ jobs:
       run: |
         Start-Process msiexec.exe -ArgumentList "/i ${{ github.workspace }}\src\bin\python\VCForPython27.msi /quiet /norestart" -Wait -NoNewWindow
 
+    - name: Set VC++ Compiler Path
+      run: |
+        set VS90COMNTOOLS="C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\"
+        set PATH=%PATH%;"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin"
+
     - name: Check for vcvarsall.bat
       run: |
         dir "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat"
