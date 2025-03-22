@@ -13,17 +13,17 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
-    - name: Set up bundled Python
-      run: |
-      # Set the path to the bundled Python directory in the repository
-        $python_dir = "${{ github.workspace }}\src\bin\python"  # Path relative to the repo root
+  name: Set up bundled Python
+  run: |
+    # Set the path to the bundled Python directory in the repository
+    $python_dir = "${{ github.workspace }}\src\bin\python"  # Path relative to the repo root
 
-        # Add bundled Python to the PATH
-        $env:PATH = "$python_dir;$env:PATH"  # Add bundled Python to the PATH
+    # Add bundled Python to the PATH
+    $env:PATH = "$python_dir;$env:PATH"  # Add bundled Python to the PATH
 
-        # Verify the Python environment
-        Write-Host "Using Python from: $python_dir"
-        & "$python_dir\python.exe" --version
+    # Verify the Python environment
+    Write-Host "Using Python from: $python_dir"
+    & "$python_dir\python.exe" --version
 
     - name: Install dependencies (py2exe, pyglet, etc.)
       run: |
