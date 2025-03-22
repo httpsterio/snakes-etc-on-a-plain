@@ -13,6 +13,15 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v3
 
+    - name: Verify bundled Python files
+      run: |
+        dir "${{ github.workspace }}\src\bin\python"
+
+
+    - name: Test bundled Python
+      run: |
+        & "${{ github.workspace }}\src\bin\python\python.exe" -c "print('Hello from bundled Python!')"
+
     - name: Set up bundled Python
       run: |
         # Set the path to the bundled Python directory in the repository
