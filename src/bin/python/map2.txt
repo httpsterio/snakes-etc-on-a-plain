@@ -1,8 +1,0 @@
-x
-x                                         X
-x                                  XX     x                        
-x                                  xx     x       h                G
-x                 X                hh     x       h                G
-x 1 2   xx       Xx                hh   XXx       h                G
-xXXXXXXXxxXX  XXXxxXXXX  XXXX   XXXxxXXXxxxXXXXX  xXX          XXXXG
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv    G
