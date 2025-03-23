@@ -2,14 +2,21 @@
 
 ![screenshot](https://github.com/httpsterio/snakes-etc-on-a-plain/blob/master/press/screenshot-intro.png?raw=true)
 
+> _In This Already Anticipated (By FGJTurku) Epic Game, The Player Will Releases A Heroic Panicbound Kid Inside!_
 
 Game made in 48* hours at Global Game Jam 2014, Jyväskylä.
 
-* __[Sami Mäkelä](https://httpster.io)__ - music & sound effects
-* __Jonne Harja__ - production, design
-* __Matti Kinnunen__ - graphics, design
-* __Jussi Lundelin__ - design, maps
-* __Aleksi Pekkala__ - programming
+[Global Game Jam entry page](https://v3.globalgamejam.org/2014/games/there-moffin-snakes-etc-moffin-plain-ex-kissat-ovat-mulkkuja-3)
+
+---
+
+## Team
+
+* __Sami Mäkelä
+* __Jonne Harja__
+* __Matti Kinnunen__
+* __Jussi Lundelin__
+* __Aleksi Pekkala__
 
 ## Run
 `python game.py`
@@ -31,7 +38,6 @@ Run the game from `release/win32/snakes-etc-on-a-plain.exe`
 In This Already Anticipated (By FGJTurku) Epic Game, The Player Will Releases A Heroic Panicbound Kid Inside!
 
 In this highly polished a single computer co-operative game, you take role off two Snakes facing the perils of this mysterious world. As the world emotionlessly pushes forward these two snakes try poetically cope the struggles they face. With power of their imagination, they give each other unfamiliar powers they never imagined (?) before.
-
 
 Play. Fail. Laugh. Challenge yourself and your (special) friend.
 
