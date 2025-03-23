@@ -36,7 +36,7 @@ __Requirements__
 - py2exe 32bit
 - pyglet 1.2
 
-- Python 2.7.18.msi, py2exe and pyglet whl files are supplied in ``src/bin/python``. You can manually install the whl files with ``python -m pip install "src\bin\python\filename.whl"`` as long as python 2.7.18 and pip is found in your path.
+Python 2.7.18.msi, py2exe and pyglet whl files are supplied in ``src/bin/python``. You can manually install the whl files with ``python -m pip install "src\bin\python\filename.whl"`` as long as python 2.7.18 and pip is found in your path.
 
 In the `src`-dir run:
  - `python setup.py install`
