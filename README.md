@@ -12,7 +12,7 @@ Game made in 48* hours at Global Game Jam 2014, Jyväskylä.
 
 ## Team
 
-* __Sami Mäkelä
+* __Sami Mäkelä__
 * __Jonne Harja__
 * __Matti Kinnunen__
 * __Jussi Lundelin__
