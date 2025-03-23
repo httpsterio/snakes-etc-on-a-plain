@@ -21,11 +21,22 @@ Game made in 48* hours at Global Game Jam 2014, Jyväskylä.
 ## Run
 `python game.py`
 
-## Build .exe
-Requirements:
- - python 2.7 32bit
- - py2exe 32bit
- - pyglet 1.2
+## Build action
+
+The game can be built for Windows with the supplied action [.github/workflows/build.yml](.github/workflows/build.yml)
+
+
+## Build locally
+
+The game can also be built locally.
+
+__Requirements__
+- Python 2.7 32bit / 64bit
+- pip 19.2.3 (recommended)
+- py2exe 32bit
+- pyglet 1.2
+
+- Python 2.7.18.msi, py2exe and pyglet whl files are supplied in ``src/bin/python``. You can manually install the whl files with ``python -m pip install "src\bin\python\filename.whl"`` as long as python 2.7.18 and pip is found in your path.
 
 In the `src`-dir run:
  - `python setup.py install`
